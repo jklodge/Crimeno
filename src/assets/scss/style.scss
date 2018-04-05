@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+section {
+    filter: invert(100%),
+    backgroundImage: 'url(/assets/images/london.jpg)',
+    height: 100vh
+}
