@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const crimes = require('../controllers/crimes');
 const auth = require('../controllers/auth');
-router.route('/crimes')
-  .get(crimes.index);
 
 router.route('/crimes')
   .get(crimes.index)

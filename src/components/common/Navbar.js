@@ -12,6 +12,11 @@ class Navbar extends React.Component {
     this.setState({ navIsOpen: !this.state.navIsOpen });
   }
 
+  handleLogout = () => {
+    Auth.logout();
+    this.props.history.push('/crimes');//props is the property we pass into
+  }
+
   componentWillUpdate() {
     this.state.navIsOpen && this.setState({ navIsOpen: false });
   }
@@ -37,6 +42,8 @@ class Navbar extends React.Component {
           <div className="navbar-end">
             <Link className="navbar-item"
               to="/crimes">Crimeno</Link>
+            <Link className="navbar-item"
+              to="/crimes/report">Report</Link>
             {Auth.isAuthenticated() && <a className="navbar-item" onClick={this.handleLogout}>Logout</a>}
             {!Auth.isAuthenticated() && <Link className="navbar-item" to="/login">Login</Link>}
             {!Auth.isAuthenticated() &&  <Link className="navbar-item" to="/register">Register</Link>}
