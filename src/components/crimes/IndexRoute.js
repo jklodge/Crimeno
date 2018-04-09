@@ -50,7 +50,7 @@ class IndexRoute extends React.Component {
       <div className="container">
         <h1 className="title">All incidents</h1>
 
-        <button onClick={this.reportCrime}>
+        {/* <button onClick={this.reportCrime}>
           <FontAwesome
             name='plus'
             size='5x'
@@ -61,7 +61,7 @@ class IndexRoute extends React.Component {
           name='search'
           size='5x'
           style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-        />;
+        />; */}
 
 
         <form>
@@ -87,6 +87,7 @@ class IndexRoute extends React.Component {
           start={this.state.start}
           end={this.state.end}
           pos={this.state.pos}
+
         />}
 
 

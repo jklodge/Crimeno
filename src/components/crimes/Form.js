@@ -41,7 +41,7 @@ const Form = ({ handleSubmit, handleChange, data, toggleSubmitReport }) => {
 
       <div className="field">
         <label htmlFor="name">Location</label>
-        <AutoComplete className="input" placeholder="Location" name="location" location={data.location} />
+        <AutoComplete className="input" placeholder="Location" name="location" location={data.location} onChange={handleChange} />
       </div>
 
       <div className="field">

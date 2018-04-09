@@ -16,7 +16,7 @@ class NewRoute extends React.Component {
     reportName: '',
     crime: '',
     location: {
-      lat: 0,//why do we need to define it here when it's in our model
+      lat: 0,
       lng: 0
     },
     date: '',
@@ -26,7 +26,7 @@ class NewRoute extends React.Component {
 
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value }, () => console.log(this.state));
+    this.setState({ [name]: value }, () => console.log('STATE', this.state));
   }
 
   toggleSubmitReport = () =>{
@@ -36,9 +36,9 @@ class NewRoute extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/crimes/', this.state)
-      .then(() =>
-        this.props.history.push('/crimes'));
+    axios.post('/api/crimes', this.state)
+      .then(() => this.props.history.push('/crimes'))
+      .catch(err => console.error(err));
   }
 
   render() {

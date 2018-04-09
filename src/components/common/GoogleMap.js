@@ -26,6 +26,25 @@ class GoogleMap extends React.Component {
     control.style.display = 'block';
     this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
+    this.props.crimes.forEach(crime => {
+      this.marker = new google.maps.Marker({
+        position: crime.location,
+        title: 'CRIME',
+        icon: '/assets/images/hand.png'
+      });
+      this.marker.addListener('click', () => {
+        this.infoWindow.setContent(`${crime.username} \n  ${crime.incidentDescription}`);
+        this.infoWindow.open(this.map, this.marker);
+        console.log('open', this.infoWindow);
+        console.log('info', this.props.crimes);
+        console.log('crime info', crime);
+
+
+      });
+      this.marker.setMap(this.map);
+    });
+
+
     const { pos } = this.props;
     this.infoWindow.setPosition(pos);
     this.infoWindow.open(this.map);
@@ -55,15 +74,7 @@ class GoogleMap extends React.Component {
     });
   }
 
-  setMarker() {
-    this.props.crimes.forEach(crime => {
-      this.marker = new google.maps.Marker({
-        position: crime.location,
-        title: 'CRIME'
-      });
-      this.marker.setMap(this.map);
-    });
-  }
+
 
   render() {
     if(this.props.start.location && this.props.end.location) {
@@ -71,7 +82,6 @@ class GoogleMap extends React.Component {
       this.calculateAndDisplayRoute();
       this.directionsDisplay.setMap(this.map);
     }
-    if(this.props.crimes.length) this.setMarker();
 
     return (
       <section>
@@ -79,6 +89,7 @@ class GoogleMap extends React.Component {
           <div id="panel" ref={element => this.panel = element}></div>
         </main>
         <div id="google-map" ref={element => this.mapDiv = element}></div>
+        {/* <div id="show" ref={element => this.show = element}>${crime.username} \n  ${crime.incidentDescription}`</div> */}
 
       </section>
     );
