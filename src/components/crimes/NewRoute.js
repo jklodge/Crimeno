@@ -4,7 +4,6 @@ import axios from 'axios';
 // import Auth from '../../lib/Auth';
 import User from '../../lib/User';
 
-
 import Form from './Form';
 
 class NewRoute extends React.Component {
@@ -13,7 +12,10 @@ class NewRoute extends React.Component {
     username: User.getUser().username,
     reportName: '',
     crime: '',
-    location: '',
+    location: {
+      lat: 0,//why do we need to define it here when it's in our model
+      lng: 0
+    },
     date: '',
     incidentDescription: '',
     submitReport: false

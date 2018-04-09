@@ -1,4 +1,5 @@
 import React from 'react';
+import AutoComplete from '../common/AutoComplete';
 
 const Form = ( {handleSubmit, handleChange, data, toggleSubmitReport }) => {
 
@@ -6,24 +7,13 @@ const Form = ( {handleSubmit, handleChange, data, toggleSubmitReport }) => {
     <form onSubmit={handleSubmit}>
       <div className="field">
         <div className="select">
-
-          <label htmlFor="name">Username</label>
-          <select placeholder="Username" name="username"
+          <label htmlFor="name">Name Shown</label>
+          <select placeholder="Username" name="reportName"
             onChange={handleChange}>
-            <option selected>{data.username}</option>
-            {/* <option>{data.username}</option> */}
-            <option>annoymous</option>
+            <option defaultValue>{data.username}</option>
+            <option value="annoymous">annoymous</option>
           </select>
         </div>
-      </div>
-      <div className="field">
-        <label htmlFor="name">Annoymous</label>
-        <select placeholder="Username"
-          onChange={handleChange}>
-          <option selected>{data.username}</option>
-          {/* <option>{data.username}</option> */}
-          <option>annoymous</option>
-        </select>
       </div>
       <div className="field">
         <div className="control">
@@ -44,7 +34,7 @@ const Form = ( {handleSubmit, handleChange, data, toggleSubmitReport }) => {
       </div>
       <div className="field">
         <label htmlFor="name">Location</label>
-        <input className="input" placeholder="Location" name="location" value={data.location} onChange={handleChange}/>
+        <AutoComplete className="input" placeholder="Location" name="location" location={data.location} onChange={handleChange} />
       </div>
 
       <div className="field">

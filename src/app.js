@@ -10,11 +10,10 @@ import IndexRoute from './components/crimes/IndexRoute';
 import NewRoute from './components/crimes/NewRoute';
 import EditRoute from './components/crimes/EditRoute';
 
-
-
-
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+
+import './assets/scss/style.scss';
 
 
 class App extends React.Component {

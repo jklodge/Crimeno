@@ -1,17 +1,26 @@
 * {
   box-sizing: border-box;
 }
-
+main {
+  margin: 0;
+.section {
+  margin: 0;
+}
+}
 body {
   font-family: sans-serif;
+  margin: 0;
 }
 
 img {
   max-width: 100%;
 }
 
-section {
-    filter: invert(100%),
-    backgroundImage: 'url(/assets/images/london.jpg)',
-    height: 100vh
+.google-map {
+  height: 100vh;
+  background-color: #ccc;
+  margin: 20px;
+}
+.title {
+  text-align: center;
 }
