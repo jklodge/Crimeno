@@ -3,6 +3,8 @@ import axios from 'axios';
 
 // import Auth from '../../lib/Auth';
 import User from '../../lib/User';
+import Location from '../../lib/Location';
+
 
 import Form from './Form';
 
@@ -10,6 +12,7 @@ class NewRoute extends React.Component {
 
   state = {
     username: User.getUser().username,
+    pos: '',
     reportName: '',
     crime: '',
     location: {
@@ -41,6 +44,7 @@ class NewRoute extends React.Component {
   render() {
     return (
       <div className="container">
+        <div>{this.state.pos}</div>
         <Form
           toggleSubmitReport={this.toggleSubmitReport}
           handleChange={this.handleChange}

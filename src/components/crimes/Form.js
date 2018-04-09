@@ -1,7 +1,9 @@
 import React from 'react';
 import AutoComplete from '../common/AutoComplete';
+// import GoogleMap from '../common/GoogleMap';
 
-const Form = ( {handleSubmit, handleChange, data, toggleSubmitReport }) => {
+
+const Form = ({ handleSubmit, handleChange, data, toggleSubmitReport }) => {
 
   return (
     <form onSubmit={handleSubmit}>
@@ -33,8 +35,13 @@ const Form = ( {handleSubmit, handleChange, data, toggleSubmitReport }) => {
         </div>
       </div>
       <div className="field">
+        <label htmlFor="name">Current Location</label>
+        <input className="input" placeholder="Your location" value={data.pos} onChange={handleChange}/>
+      </div>
+
+      <div className="field">
         <label htmlFor="name">Location</label>
-        <AutoComplete className="input" placeholder="Location" name="location" location={data.location} onChange={handleChange} />
+        <AutoComplete className="input" placeholder="Location" name="location" location={data.location} />
       </div>
 
       <div className="field">

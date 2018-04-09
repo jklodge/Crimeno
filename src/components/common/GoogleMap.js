@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+
 class GoogleMap extends React.Component {
   // marker = null;
   // map = null;
@@ -15,28 +16,43 @@ class GoogleMap extends React.Component {
       },
       zoom: 14
     });
+    this.infoWindow = new google.maps.InfoWindow;
+    this.directionsService = new google.maps.DirectionsService;
+    this.directionsDisplay = new google.maps.DirectionsRenderer;
+    this.directionsDisplay.setMap(this.map);
+    this.directionsDisplay.setPanel(this.panel);
 
+    const control = this.panel;
+    control.style.display = 'block';
+    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
-
-    // this.marker = new google.maps.Marker(this.mapDiv, {
-    //   position: this.props.center,
-    //   map: this.map,
-    //   title: 'Hello'
-    // });
-    // console.log('errr', this.mapDiv, google);
+    const { pos } = this.props;
+    this.infoWindow.setPosition(pos);
+    this.infoWindow.open(this.map);
+    this.infoWindow.setContent('You are here');
+    this.map.setCenter(pos);
   }
 
+
   componentWillReceiveProps() {
-    // if (this.props.crimes.length === 0) return false;
-    // console.log('Hello');
-    // console.log('crimes', this.props.crimes);
-    // this.marker = new google.maps.Marker({
-    //   position: this.props.crimes[0].location,
-    //   // map: this.map,
-    //   title: 'CRIME'
-    // });
-    // console.log(this.marker);
-    // this.marker.setMap(this.map);
+
+  }
+
+  calculateAndDisplayRoute() {
+    const start = this.props.start.location;
+    const end = this.props.end.location;
+
+    this.directionsService.route({
+      origin: start,
+      destination: end,
+      travelMode: 'WALKING'
+    }, (response, status) => {
+      if (status === 'OK') {
+        this.directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
   }
 
   setMarker() {
@@ -49,12 +65,22 @@ class GoogleMap extends React.Component {
     });
   }
 
-
-
   render() {
+    if(this.props.start.location && this.props.end.location) {
+      console.log('loc', this.props.start.location && this.props.end.location);
+      this.calculateAndDisplayRoute();
+      this.directionsDisplay.setMap(this.map);
+    }
     if(this.props.crimes.length) this.setMarker();
+
     return (
-      <div className="google-map" ref={element => this.mapDiv = element}></div>
+      <section>
+        <main className="floating-panel">
+          <div id="panel" ref={element => this.panel = element}></div>
+        </main>
+        <div id="google-map" ref={element => this.mapDiv = element}></div>
+
+      </section>
     );
   }
 }

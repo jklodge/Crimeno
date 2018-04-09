@@ -10,11 +10,14 @@ class AutoComplete extends React.Component {
     this.autoCompleteInput.addListener('place_changed', () => {
       const place = this.autoCompleteInput.getPlace();
       this.props.onChange({
-        target: { name: 'location', value: place.formatted_address }
+        target: {
+          name: this.input.name,
+          value: {
+            location: place.geometry.location.toJSON(),
+            address: place.formatted_address
+          }
+        }
       });
-      const lat = place.geometry.location.lat();
-      const lng = place.geometry.location.lng();
-      console.log(lng);
     });
   }
 

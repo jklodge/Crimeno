@@ -2,19 +2,30 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import axios from 'axios';
 import AutoComplete from '../common/AutoComplete';
-
+import Location from '../../lib/Location';
+import Promise from 'bluebird';
 
 import GoogleMap from '../../components/common/GoogleMap';
 
 class IndexRoute extends React.Component {
   state = {
     crimes: [],
-    query: ''
+    query: '',
+    start: {},
+    end: {},
+    pos: null,
+    currentLocation: ''
   }
 
   componentDidMount() {
-    axios.get('/api/crimes/')
-      .then(res => this.setState({ crimes: res.data }));//with state we're updating the location state
+    Promise.props({
+      crimes: axios.get('/api/crimes/').then(res => res.data),
+      pos: Location.getLocation()
+    })
+      .then(data => this.setState({
+        crimes: data.crimes,
+        pos: data.pos
+      }, () => console.log(this.state)));//with state we're updating the location state
   }
 
   handleChange = (e) => {
@@ -29,6 +40,10 @@ class IndexRoute extends React.Component {
   reportCrime = () => {
     this.props.history.push('/crimes/report');
   }
+
+  // handlePos = (pos) => {
+  //   this.setState({ pos });
+  // }
 
   render() {
     return (
@@ -50,21 +65,29 @@ class IndexRoute extends React.Component {
 
 
         <form>
-          <div className="field">
+          <main>
+
+            <div id="start" className="field">
+              <label htmlFor="name">Current Location</label>
+            </div>
+          </main>
+          <div id="start" className="field">
             <label htmlFor="name">Location</label>
-            <AutoComplete className="input" placeholder="Location" name="location" location={this.state.location} onChange={this.handleSearch} />
+            <AutoComplete className="input" placeholder="Location" name="start" onChange={this.handleChange} />
+          </div>
+          <div id="end" className="field">
+            <label htmlFor="name">Location</label>
+            <AutoComplete className="input" placeholder="Location" name="end" onChange={this.handleChange} />
           </div>
 
-          {/* <div className="field">
-            <input className="input"
-              type="text"
-              name="search"
-              placeholder="Search Route"
-              // location=
-              onChange={this.handleSearch} />
-          </div> */}
+
         </form>
-        <GoogleMap crimes={this.state.crimes} />
+        {this.state.pos && <GoogleMap
+          crimes={this.state.crimes}
+          start={this.state.start}
+          end={this.state.end}
+          pos={this.state.pos}
+        />}
 
 
 
