@@ -1,9 +1,9 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
+// import FontAwesome from 'react-fontawesome';
 import axios from 'axios';
 import AutoComplete from '../common/AutoComplete';
 import Location from '../../lib/Location';
-import Promise from 'bluebird';
+// import Promise from 'bluebird';
 
 import GoogleMap from '../../components/common/GoogleMap';
 
@@ -14,19 +14,23 @@ class IndexRoute extends React.Component {
     start: {},
     end: {},
     pos: null,
-    currentLocation: ''
+    currentLocation: '',
+    police: []
   }
 
   componentDidMount() {
-    Promise.props({
-      crimes: axios.get('/api/crimes/').then(res => res.data),
-      pos: Location.getLocation()
-    })
-      .then(data => this.setState({
-        crimes: data.crimes,
-        pos: data.pos
-      }, () => console.log(this.state)));//with state we're updating the location state
+    axios.get('/api/crimes/')
+      .then(res => {
+        this.setState({ crimes: res.data });
+        return Location.getLocation();
+      })
+      .then(pos => this.setState({ pos }));
   }
+
+  // componentDidUpdate() {
+  //   axios.get('https://data.police.uk/docs/method/neighbourhood/')
+  //     .then(res => this.setState({ police: res.data }, () => console.log(this.state)));
+  // }
 
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,6 +53,7 @@ class IndexRoute extends React.Component {
     return (
       <div className="container">
         <h1 className="title">All incidents</h1>
+        {/* <button onClick="getPoliceData">Get Police</button> */}
 
         {/* <button onClick={this.reportCrime}>
           <FontAwesome
@@ -82,13 +87,12 @@ class IndexRoute extends React.Component {
 
 
         </form>
-        {this.state.pos && <GoogleMap
+        <GoogleMap
           crimes={this.state.crimes}
           start={this.state.start}
           end={this.state.end}
           pos={this.state.pos}
-
-        />}
+        />
 
 
 

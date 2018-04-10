@@ -120,3 +120,22 @@
 // }
 //
 // export default GoogleMap;
+// componentDidMount() {
+//   axios.get('/api/crimes/')
+//     .then(res => {
+//       this.setState({ crimes: res.data });
+//       return Location.getLocation();
+//     })
+//     .then(pos => this.setState({ pos }));
+// }
+// 
+// componentDidMount() {
+//   Promise.props({
+//     crimes: axios.get('/api/crimes/').then(res => res.data),
+//     pos: Location.getLocation()
+//   })
+//     .then(data => this.setState({
+//       crimes: data.crimes,
+//       pos: data.pos
+//     }, () => console.log(this.state)));//with state we're updating the location state
+// }

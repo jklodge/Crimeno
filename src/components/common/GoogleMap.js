@@ -4,9 +4,6 @@ import React from 'react';
 
 
 class GoogleMap extends React.Component {
-  // marker = null;
-  // map = null;
-
 
   componentDidMount() {
     this.map = new google.maps.Map(this.mapDiv, {
@@ -25,15 +22,45 @@ class GoogleMap extends React.Component {
     const control = this.panel;
     control.style.display = 'block';
     this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+  }
 
-    this.props.crimes.forEach(crime => {
+
+  componentDidUpdate() {
+    const { pos, crimes } = this.props;
+
+    if(pos) {
+      this.infoWindow.setPosition(pos);
+      this.infoWindow.open(this.map);
+      this.infoWindow.setContent('You are here');
+      this.map.setCenter(pos);
+    }
+
+    const icons = {
+      'Gun crime': '/assets/images/gun.png',
+      'Motor Vehicle': '/assets/images/car1.png',
+      'Robbery': '/assets/images/thief.png',
+      'Assault': '/assets/images/fight.png',
+      'Knife Crime': '/assets/images/knife.png',
+      'Sexual Offence': '/assets/images/face.png',
+      'Racist Offence': '/assets/images/face.png',
+      'Homophobic Offence': '/assets/images/face.png'
+    };
+
+    crimes.forEach(crime => {
       this.marker = new google.maps.Marker({
         position: crime.location,
         title: 'CRIME',
-        icon: '/assets/images/hand.png'
+        icon: icons[crime.crime]
       });
       this.marker.addListener('click', () => {
-        this.infoWindow.setContent(`${crime.username} \n  ${crime.incidentDescription}`);
+        this.infoWindow.setContent(`
+          <div>
+            <img src=${icons[crime.crime]} />
+            <p><strong>${crime.username}</strong></p>
+            <p class="title">${crime.crime}</p>
+            <p>${crime.incidentDescription}</p>
+          </div>
+        `);
         this.infoWindow.open(this.map, this.marker);
         console.log('open', this.infoWindow);
         console.log('info', this.props.crimes);
@@ -43,18 +70,6 @@ class GoogleMap extends React.Component {
       });
       this.marker.setMap(this.map);
     });
-
-
-    const { pos } = this.props;
-    this.infoWindow.setPosition(pos);
-    this.infoWindow.open(this.map);
-    this.infoWindow.setContent('You are here');
-    this.map.setCenter(pos);
-  }
-
-
-  componentWillReceiveProps() {
-
   }
 
   calculateAndDisplayRoute() {
