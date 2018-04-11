@@ -23,11 +23,13 @@ class GoogleMap extends React.Component {
     this.infoWindow = new google.maps.InfoWindow;
     this.directionsService = new google.maps.DirectionsService;
     this.directionsDisplay = new google.maps.DirectionsRenderer;
+    this.geocoder = new google.maps.Geocoder;
+
     this.directionsDisplay.setMap(this.map);
     this.directionsDisplay.setPanel(this.panel);
-    const control = this.current;
-    control.style.display = 'block';
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+    // const control = this.current;
+    // control.style.display = 'block';
+    // this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
 
     // =51.668095,0.487937:51.310265,0.387533:51.608899,0.263407')
@@ -78,27 +80,14 @@ class GoogleMap extends React.Component {
         heatmap.setMap(this.map);
       });
 
-    // this.state.police.map(crime => {
-    //   console.log(crime);
-    //   this.map = new google.maps.Map(this.mapDiv, {
-    //     center: this.state.center,
-    //     zoom: 13,
-    //     mapTypeId: 'satellite'
-    //   });
-    //
-    //   const heatmap = new google.maps.visualization.HeatmapLayer({
-    //     data: newArray
-    //   });
-    //   heatmap.setMap(this.map);
-    // });
   }
 
 
 
 
   getCurrentLocation = () => {
+    console.log('getting current pos...');
     const { pos, crimes } = this.props;
-
     if(pos) {
       this.infoWindow.setPosition(pos);
       this.infoWindow.open(this.map);
@@ -107,9 +96,6 @@ class GoogleMap extends React.Component {
     }
 
 
-
-
-    /* <Link className="button" to={`${/crimes/crime._id/edit}`}>Edit</Link> */
     const icons = {
       'Gun Crime': '/assets/images/gun.png',
       'Motor Vehicle': '/assets/images/car1.png',
@@ -135,7 +121,6 @@ class GoogleMap extends React.Component {
             <p class="title">${crime.crime}</p>
             <p>${crime.incidentDescription}</p>
             <p><a href="/crimes/${crime._id}">See more...</a></p>
-            <p><a href="/crimes/${crime._id}/edit">Edit</a></p>
           </div>
         `);
         this.infoWindow.open(this.map, this.marker);
@@ -146,22 +131,6 @@ class GoogleMap extends React.Component {
       this.marker.setMap(this.map);
     });
   }
-
-
-  // crimesonRoute = () => {
-  //   (response) => {
-  //     console.log('response', response);
-  //   // response.routes[0].legs[0].steps.map(crime => {
-  //   // // DEFINING crime RESULTS
-  //   // crimes.nearbySearch({
-  //   //   location: step.start_point,
-  //   //   radius: 50,
-  //   //   type: crimes
-  //   // }, (results) => {
-  //   //   results.map(crime => {
-  //   //     console.log(crime);
-  //   };
-  // }
 
   calculateAndDisplayRoute = () => {
     const start = this.props.start.location;
@@ -178,9 +147,30 @@ class GoogleMap extends React.Component {
         window.alert('Directions request failed due to ' + status);
       }
     });
-    this.setState({ hideMap: !this.state.hideMap }, () =>     console.log(this.state));
+
+    this.setState({ hideMap: !this.state.hideMap }, () => console.log(this.state));
 
   }
+
+
+  returnToCurrentLocation = () => {
+    if(this.props.pos) {
+
+      this.infoWindow.setPosition(this.props.pos);
+      this.infoWindow.open(this.map);
+      this.infoWindow.setContent('You are here');
+      this.map.setCenter(this.props.pos);
+
+      this.geocoder.geocode({location: this.props.pos}, (results) => {
+        console.log('geocodin\'', results[0].formatted_address);
+        this.props.handleLocationClick({
+          location: this.props.pos,
+          address: results[0].formatted_address
+        });
+      });
+    }
+  }
+
 
   toggleMap = () => {
     this.setState({ hideMap: !this.state.hideMap }, () =>     console.log(this.state));
@@ -195,6 +185,7 @@ class GoogleMap extends React.Component {
 
     return (
       <section>
+        {/* <button id="submit" ref={element => this.submit = element}>Submit</button> */}
         <div id="go">
           <button onClick={this.calculateAndDisplayRoute} type="button" className="button go">Search</button>
         </div>
@@ -208,7 +199,7 @@ class GoogleMap extends React.Component {
           </main>
         </div>
 
-        <img onClick={this.getCurrentLocation} src="/assets/images/place.png"  id="current" ref={element => this.current = element}></img>
+        <img onClick={this.getCurrentLocation} src="/assets/images/place.png" id="current"></img>
       </section>
     );
   }

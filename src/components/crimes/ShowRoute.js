@@ -33,6 +33,7 @@ class ShowRoute extends React.Component {
 
   render() {
     if(!this.state.crime) return null;
+    console.log(this.state.id, this.state.crime.user);
     return (
       <section>
         <h1>Username of reported crime: {this.state.crime.username}</h1>

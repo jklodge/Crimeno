@@ -7,6 +7,7 @@ function indexRoute(req, res, next) {
 }
 
 function createRoute(req, res, next) {
+  req.body.user = req.currentUser;
   return Crime.create(req.body)
     .then(crime => res.status(201).json(crime))
     .catch(next);

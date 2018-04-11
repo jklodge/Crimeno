@@ -27,7 +27,7 @@ class IndexRoute extends React.Component {
         this.setState({ crimes: res.data });
         return Location.getLocation();
       })
-      .then(pos => this.setState({ pos }));
+      .then(pos => this.setState({ pos }, () => console.log(this.state)));
   }
 
   // componentDidUpdate() {
@@ -49,16 +49,15 @@ class IndexRoute extends React.Component {
   }
 
 
-  // handlePos = (pos) => {
-  //   this.setState({ pos });
-  // }
+  handleLocationClick = (address) => {
+    this.setState({ start: address }, () => console.log(this.state));
+  }
 
   render() {
     return (
       <div className="container">
         <h1 className="title">All incidents</h1>
 
-        {/* <Police /> */}
         <form>
           <div id="start" className="field">
             <label htmlFor="name">Current Location</label>
@@ -68,6 +67,7 @@ class IndexRoute extends React.Component {
               <label htmlFor="name">Start</label>
               <AutoComplete className="input" placeholder="Location" name="start" onChange={this.handleChange} />
             </div>
+            {/* <button id="getLocation">Get Current Location</button> */}
             <div id="end" className="field">
               <label htmlFor="name">Finish</label>
               <AutoComplete className="input" placeholder="Location" name="end" onChange={this.handleChange} />
@@ -79,6 +79,7 @@ class IndexRoute extends React.Component {
           start={this.state.start}
           end={this.state.end}
           pos={this.state.pos}
+          handleLocationClick={this.handleLocationClick}
         />
 
       </div>

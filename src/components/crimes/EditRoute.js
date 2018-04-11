@@ -12,6 +12,7 @@ class NewRoute extends React.Component {
     username: '',
     crime: '',
     location: '',
+    address: '',
     date: '',
     incidentDescription: '',
     submitReport: false
@@ -19,7 +20,8 @@ class NewRoute extends React.Component {
 
   componentDidMount() {
     axios.get(`/api/crimes/${this.props.match.params.id}`)
-      .then(res => this.setState(res.data));//with state we're updating the state at the top
+      .then(res => this.setState(res.data))
+      .then(() => console.log('he', this.state.address));//with state we're updating the state at the top
   }
 
   handleChange = (e) => {
@@ -31,6 +33,10 @@ class NewRoute extends React.Component {
     this.setState({ submitReport: !this.state.submitReport });
   }
 
+  handleLocationChange = (e) => {
+    const { location, address } = e.target.value;
+    this.setState({ location, address }, () => console.log(this.state));
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -48,6 +54,8 @@ class NewRoute extends React.Component {
           toggleSubmitReport={this.toggleSubmitReport}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          handleLocationChange={this.handleLocationChange}
+
           data={this.state}
         />
       </div>
