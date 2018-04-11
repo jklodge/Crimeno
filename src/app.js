@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import ProtectedRoute from './components/common/ProtectedRoute';
+
 import 'bulma';
 import Navbar from './components/common/Navbar';
 import Home from './components/crimes/Home';
 import IndexRoute from './components/crimes/IndexRoute';
 import NewRoute from './components/crimes/NewRoute';
 import EditRoute from './components/crimes/EditRoute';
+import ShowRoute from './components/crimes/ShowRoute';
+
 
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -25,9 +29,12 @@ class App extends React.Component {
           <section className="section">
             <Switch>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/crimes/report/:id" component={EditRoute} />
-              <Route exact path="/crimes" component={IndexRoute} />
+              <Route exact path="/crimes/:id/edit" component={EditRoute} />
+              <ProtectedRoute path="/crimes/report" component={NewRoute} />
               <Route exact path="/crimes/report" component={NewRoute} />
+
+              <Route exact path="/crimes/:id" component={ShowRoute} />
+              <Route exact path="/crimes" component={IndexRoute} />
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
 

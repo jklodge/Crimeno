@@ -4,8 +4,10 @@ import axios from 'axios';
 import AutoComplete from '../common/AutoComplete';
 import Location from '../../lib/Location';
 // import Promise from 'bluebird';
+// import { Link } from 'react-router-dom';
 
 import GoogleMap from '../../components/common/GoogleMap';
+// import Police from '../../components/common/Police';
 
 class IndexRoute extends React.Component {
   state = {
@@ -15,7 +17,8 @@ class IndexRoute extends React.Component {
     end: {},
     pos: null,
     currentLocation: '',
-    police: []
+    // police: [],
+    hideMap: false
   }
 
   componentDidMount() {
@@ -45,6 +48,7 @@ class IndexRoute extends React.Component {
     this.props.history.push('/crimes/report');
   }
 
+
   // handlePos = (pos) => {
   //   this.setState({ pos });
   // }
@@ -53,39 +57,22 @@ class IndexRoute extends React.Component {
     return (
       <div className="container">
         <h1 className="title">All incidents</h1>
-        {/* <button onClick="getPoliceData">Get Police</button> */}
 
-        {/* <button onClick={this.reportCrime}>
-          <FontAwesome
-            name='plus'
-            size='5x'
-            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-          />;
-        </button>
-        <FontAwesome
-          name='search'
-          size='5x'
-          style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-        />; */}
-
-
+        {/* <Police /> */}
         <form>
-          <main>
-
-            <div id="start" className="field">
-              <label htmlFor="name">Current Location</label>
+          <div id="start" className="field">
+            <label htmlFor="name">Current Location</label>
+          </div>
+          <main className="search">
+            <div onClick={this.openSearch} id="start" className="field">
+              <label htmlFor="name">Start</label>
+              <AutoComplete className="input" placeholder="Location" name="start" onChange={this.handleChange} />
+            </div>
+            <div id="end" className="field">
+              <label htmlFor="name">Finish</label>
+              <AutoComplete className="input" placeholder="Location" name="end" onChange={this.handleChange} />
             </div>
           </main>
-          <div id="start" className="field">
-            <label htmlFor="name">Location</label>
-            <AutoComplete className="input" placeholder="Location" name="start" onChange={this.handleChange} />
-          </div>
-          <div id="end" className="field">
-            <label htmlFor="name">Location</label>
-            <AutoComplete className="input" placeholder="Location" name="end" onChange={this.handleChange} />
-          </div>
-
-
         </form>
         <GoogleMap
           crimes={this.state.crimes}
@@ -93,8 +80,6 @@ class IndexRoute extends React.Component {
           end={this.state.end}
           pos={this.state.pos}
         />
-
-
 
       </div>
     );

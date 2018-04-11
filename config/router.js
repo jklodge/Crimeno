@@ -1,15 +1,15 @@
 const router = require('express').Router();
 const crimes = require('../controllers/crimes');
 const auth = require('../controllers/auth');
-
+const secureRoute = require('../lib/secureRoute');
 router.route('/crimes')
   .get(crimes.index)
-  .post(crimes.create);
+  .post(secureRoute, crimes.create);
 
 router.route('/crimes/:id')
   .get(crimes.show)
-  .put(crimes.update)
-  .delete(crimes.delete);
+  .put(secureRoute, crimes.update)
+  .delete(secureRoute, crimes.delete);
 
 
 router.route('/register')
