@@ -8,7 +8,7 @@ import axios from 'axios';
 class GoogleMap extends React.Component {
 
   state = {
-    hideMap: false,
+    // hideMap: false,
     police: []
   }
 
@@ -27,9 +27,6 @@ class GoogleMap extends React.Component {
 
     this.directionsDisplay.setMap(this.map);
     this.directionsDisplay.setPanel(this.panel);
-    // const control = this.current;
-    // control.style.display = 'block';
-    // this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
 
     // =51.668095,0.487937:51.310265,0.387533:51.608899,0.263407')
@@ -82,9 +79,6 @@ class GoogleMap extends React.Component {
 
   }
 
-
-
-
   getCurrentLocation = () => {
     console.log('getting current pos...');
     const { pos, crimes } = this.props;
@@ -95,16 +89,15 @@ class GoogleMap extends React.Component {
       this.map.setCenter(pos);
     }
 
-
     const icons = {
       'Gun Crime': '/assets/images/gun.png',
       'Motor Vehicle': '/assets/images/car1.png',
       'Robbery': '/assets/images/thief.png',
       'Assault': '/assets/images/fight.png',
       'Knife Crime': '/assets/images/knife.png',
-      'Sexual Offence': '/assets/images/face.png',
-      'Racist Offence': '/assets/images/face.png',
-      'Homophobic Offence': '/assets/images/face.png'
+      'Sexual Offence': '/assets/images/warning1.png',
+      'Racist Crime': '/assets/images/warning1.png',
+      'Homophobic Crime': '/assets/images/warning1.png'
     };
 
     crimes.forEach(crime => {
@@ -113,12 +106,15 @@ class GoogleMap extends React.Component {
         title: 'CRIME',
         icon: icons[crime.crime]
       });
+      const createdAt = crime.createdAt.slice(0, -14);
+      console.log(createdAt);
       this.marker.addListener('click', () => {
         this.infoWindow.setContent(`
           <div>
             <img src=${icons[crime.crime]} />
-            <p><strong>${crime.username}</strong></p>
-            <p class="title">${crime.crime}</p>
+            <p><strong>User added: ${crime.username}</strong></p>
+            <p>Date added: ${createdAt}</p>
+            <p>Crime taken: ${crime.crime}</p>
             <p>${crime.incidentDescription}</p>
             <p><a href="/crimes/${crime._id}">See more...</a></p>
           </div>
@@ -148,10 +144,8 @@ class GoogleMap extends React.Component {
       }
     });
 
-    this.setState({ hideMap: !this.state.hideMap }, () => console.log(this.state));
-
+    // this.setState({ hideMap: !this.state.hideMap }, () => console.log(this.state));
   }
-
 
   returnToCurrentLocation = () => {
     if(this.props.pos) {
@@ -171,11 +165,9 @@ class GoogleMap extends React.Component {
     }
   }
 
-
-  toggleMap = () => {
-    this.setState({ hideMap: !this.state.hideMap }, () =>     console.log(this.state));
-  }
-
+  // toggleMap = () => {
+  //   this.setState({ hideMap: !this.state.hideMap }, () =>     console.log(this.state));
+  // }
 
   render() {
     if(this.props.start.location && this.props.end.location) {
@@ -189,13 +181,13 @@ class GoogleMap extends React.Component {
         <div id="go">
           <button onClick={this.calculateAndDisplayRoute} type="button" className="button go">Search</button>
         </div>
-        {!this.state.hideMap && <div id="google-map" ref={element => this.mapDiv = element}></div>}
+        <div id="google-map" ref={element => this.mapDiv = element}></div>
 
         <div id="panel" ref={element => this.panel = element}></div>
         <div id="go">
           <main>
             <div>{this.crimes}</div>
-            <button onClick={this.calculateAndDisplayRoute} type="button" className="button go">Show Map</button>
+            {/* <button onClick={this.calculateAndDisplayRoute} type="button" className="button go">Show Map</button> */}
           </main>
         </div>
 

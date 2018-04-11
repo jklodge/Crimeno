@@ -56,12 +56,10 @@ class IndexRoute extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1 className="title">All incidents</h1>
+        <h1 className="title">Crimeno</h1>
 
         <form>
-          <div id="start" className="field">
-            <label htmlFor="name">Current Location</label>
-          </div>
+
           <main className="search">
             <div onClick={this.openSearch} id="start" className="field">
               <label htmlFor="name">Start</label>

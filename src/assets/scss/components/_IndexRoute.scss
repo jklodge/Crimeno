@@ -1,0 +1,30 @@
+#google-map {
+  height: 100vh;
+  background-color: #ccc;
+  margin: 20px;
+}
+.title {
+  text-align: center;
+}
+
+.warnbox-content {
+  display: none;
+}
+
+#go {
+  text-align: center;
+  margin: 10px;
+}
+img#current {
+  display: block;
+  border-radius: 10px;
+  z-index: 0;
+  position: absolute;
+  top: 85% !important;
+  bottom: 10% !important;
+  left: 25px !important;
+}
+
+.field:not(:last-child) {
+  margin-top: 2rem;
+}

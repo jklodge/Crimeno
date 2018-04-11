@@ -1,3 +1,8 @@
+@import "components/IndexRoute.scss";
+@import "components/ShowRoute.scss";
+@import "components/home.scss";
+
+
 * {
   box-sizing: border-box;
 }
@@ -8,122 +13,10 @@ main {
   }
 }
 body {
-  font-family: 'Righteous', cursive;
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
 }
 
 img {
   max-width: 100%;
 }
-
-#google-map {
-  height: 100vh;
-  background-color: #ccc;
-  margin: 20px;
-}
-.title {
-  text-align: center;
-}
-
-.warnbox-content {
-  display: none;
-}
-
-#go {
-  text-align: center;
-  margin: 10px;
-}
-img#current {
-  display: block;
-  border-radius: 10px;
-  z-index: 0;
-  position: absolute;
-  top: 85% !important;
-  bottom: 10% !important;
-  left: 25px !important;
-}
-.search {
-
-}
-
-// #google-map {
-//   display: none
-// }
-
-.field:not(:last-child) {
-  margin-top: 2rem;
-
-}
-
-
-// #floating-panel {
-//   position: absolute;
-//   top: 10px;
-//   left: 25%;
-//   z-index: 5;
-//   background-color: #fff;
-//   padding: 5px;
-//   border: 1px solid #999;
-//   text-align: center;
-//   font-family: 'Roboto','sans-serif';
-//   line-height: 30px;
-//   padding-left: 10px;
-// }
-// #floating-panel {
-//   position: relative;
-//   top: 10px;
-//   left: 25%;
-//   z-index: 5;
-//   background-color: #fff;
-//   padding: 5px;
-//   border: 1px solid #999;
-//   text-align: center;
-//   font-family: 'Roboto','sans-serif';
-//   line-height: 30px;
-//   padding-left: 10px;
-// }
-// #panel {
-//   font-family: 'Roboto','sans-serif';
-//   line-height: 30px;
-//   padding-left: 10px;
-// }
-//
-// #panel select, #panel input {
-//   font-size: 15px;
-// }
-//
-// #panel select {
-//   width: 100%;
-// }
-//
-// #panel i {
-//   font-size: 12px;
-// }
-// #panel {
-//   height: 100%;
-//   float: right;
-//   width: 390px;
-//   overflow: auto;
-// }
-// #map {
-//   margin-right: 400px;
-// }
-// #floating-panel {
-//   background: #fff;
-//   padding: 5px;
-//   font-size: 14px;
-//   font-family: Arial;
-//   border: 1px solid #ccc;
-//   box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
-//   display: none;
-// }
-// @media print {
-//   #map {
-//     height: 500px;
-//     margin: 0;
-//   }
-//   #panel {
-//     float: none;
-//     width: auto;
-//   }
-// }

@@ -35,10 +35,10 @@ class ShowRoute extends React.Component {
     if(!this.state.crime) return null;
     console.log(this.state.id, this.state.crime.user);
     return (
-      <section>
+      <section className="showPage">
         <h1>Username of reported crime: {this.state.crime.username}</h1>
-        <h1>Incident Description: {this.state.crime.incidentDescription}</h1>
         <h1>Address: {this.state.crime.address}</h1>
+        <h1>Incident Description: {this.state.crime.incidentDescription}</h1>
 
         {this.state.deletePressed ? (
           <div>
