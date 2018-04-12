@@ -2,9 +2,16 @@ section.homePage {
   width: 100%;
   text-align: center;
   padding: 20px;
+  display: flex;
+
+}
+div.top {
+ width: 100%;
 }
 
 header {
+
+  margin-top: 30px;
   width: 50%;
   p {
     padding-top: 10px;

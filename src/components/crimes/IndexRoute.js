@@ -13,7 +13,9 @@ class IndexRoute extends React.Component {
   state = {
     crimes: [],
     query: '',
+    startAddress: '',
     start: {},
+    endAddress: '',
     end: {},
     pos: null,
     currentLocation: '',
@@ -49,26 +51,27 @@ class IndexRoute extends React.Component {
   }
 
 
-  handleLocationClick = (address) => {
-    this.setState({ start: address }, () => console.log(this.state));
+  handleLocationClick = ({ location, address }) => {
+    console.log('handleLocationClick', location, address);
+    this.setState({ start: location, startAddress: address }, () => console.log(this.state));
   }
 
   render() {
     return (
       <div className="container">
-        <h1 className="title">Crimeno</h1>
+        <h1 className="title">CrimeNo</h1>
 
         <form>
 
           <main className="search">
             <div onClick={this.openSearch} id="start" className="field">
               <label htmlFor="name">Start</label>
-              <AutoComplete className="input" placeholder="Location" name="start" onChange={this.handleChange} />
+              <AutoComplete className="input" placeholder="Location" name="startAddress" onChange={this.handleChange} value={this.state.startAddress} />
             </div>
             {/* <button id="getLocation">Get Current Location</button> */}
             <div id="end" className="field">
               <label htmlFor="name">Finish</label>
-              <AutoComplete className="input" placeholder="Location" name="end" onChange={this.handleChange} />
+              <AutoComplete className="input" placeholder="Location" name="endAddress" onChange={this.handleChange} value={this.state.endAddress} />
             </div>
           </main>
         </form>

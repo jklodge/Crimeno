@@ -18,6 +18,10 @@ router.route('/register')
 router.route('/login')
   .post(auth.login);
 
+router.route('/crimes/:id/support')
+  .post(secureRoute, crimes.support)
+  .get(crimes.deleteSupport);
+
 router.route('/*')
   .all((req, res) =>
     res.status(404).json({

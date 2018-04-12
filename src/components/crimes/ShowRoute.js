@@ -13,7 +13,6 @@ class ShowRoute extends React.Component {
     deletePressed: false
   }
 
-
   componentDidMount() {
     axios.get(`/api/crimes/${this.props.match.params.id}`)
       .then(res => this.setState({ crime: res.data }));
@@ -31,11 +30,26 @@ class ShowRoute extends React.Component {
         this.props.history.push('/crimes'));
   }
 
+  handleSupport = (e) => {//why is it this.state and notthis.state.support
+    e.preventDefault();
+    axios.post(`/api/crimes/${this.props.match.params.id}/support`,this.state, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => this.setState({ crime: res.data }))
+      .catch(err => console.error(err));
+  }
+
   render() {
     if(!this.state.crime) return null;
     console.log(this.state.id, this.state.crime.user);
     return (
       <section className="showPage">
+        {this.state.crime.supports.includes(this.state.id) ? (
+          <button disabled className="button is-info fave"><i className="far fa-hand-rock"></i>{this.state.crime.supports.length}</button>
+        ) : (
+
+          <button onClick={this.handleSupport} className="button is-info fave"><i className="far fa-hand-rock"></i>{this.state.crime.supports.length}</button>
+        )}
         <h1>Username of reported crime: {this.state.crime.username}</h1>
         <h1>Address: {this.state.crime.address}</h1>
         <h1>Incident Description: {this.state.crime.incidentDescription}</h1>

@@ -129,8 +129,7 @@ class GoogleMap extends React.Component {
   }
 
   calculateAndDisplayRoute = () => {
-    const start = this.props.start.location;
-    const end = this.props.end.location;
+    const { start, end } = this.props;
     this.directionsService.route({
       origin: start,
       destination: end,
@@ -170,14 +169,12 @@ class GoogleMap extends React.Component {
   // }
 
   render() {
-    if(this.props.start.location && this.props.end.location) {
-      console.log('loc', this.props.start.location && this.props.end.location);
-    }
     this.getCurrentLocation();
 
     return (
       <section>
-        {/* <button id="submit" ref={element => this.submit = element}>Submit</button> */}
+        <button onClick={this.returnToCurrentLocation} type="button" className="button go">Current Location</button>
+
         <div id="go">
           <button onClick={this.calculateAndDisplayRoute} type="button" className="button go">Search</button>
         </div>
@@ -191,7 +188,7 @@ class GoogleMap extends React.Component {
           </main>
         </div>
 
-        <img onClick={this.getCurrentLocation} src="/assets/images/place.png" id="current"></img>
+        <img onClick={this.returnToCurrentLocation} src="/assets/images/place.png" id="current"></img>
       </section>
     );
   }

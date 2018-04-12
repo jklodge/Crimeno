@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }
+  // supports: [{ type: mongoose.Schema.ObjectId, ref: 'Crime'}]
 });
 
 userSchema
@@ -28,6 +29,12 @@ userSchema.pre('save', function hashPassword(next) {
 
 userSchema.methods.validatePassword = function(password) {
   return bcrypt.compareSync(password, this.password);
+};
+
+userSchema.methods.hasFavorited = function hasFavorited(crime) {
+  return this.supports.some((support) => {
+    return support.equals(crime._id);
+  });
 };
 
 module.exports = mongoose.model('User', userSchema);
