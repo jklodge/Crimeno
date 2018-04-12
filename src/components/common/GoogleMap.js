@@ -151,6 +151,7 @@ class GoogleMap extends React.Component {
   toggleHeatMap = () => {
     if(this.heatmap.map === null) return this.heatmap.setMap(this.map);
     else if (this.heatmap.map === this.map) return this.heatmap.setMap(null);
+
   }
 
   style = {
