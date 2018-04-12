@@ -15,7 +15,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="user">
         <h1>Username: {this.state.user.username}</h1>
         <h1>Username: {this.state.user.email}</h1>
 

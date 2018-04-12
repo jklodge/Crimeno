@@ -2,6 +2,7 @@
 
 import React from 'react';
 import axios from 'axios';
+import IndexRoute from '../../components/crimes/IndexRoute';
 
 
 
@@ -152,18 +153,22 @@ class GoogleMap extends React.Component {
     else if (this.heatmap.map === this.map) return this.heatmap.setMap(null);
   }
 
+  style = {
+    absolute: 'realitve'
+  };
+
   render() {
     this.getCurrentLocation();
 
     return (
       <section>
-        <button onClick={this.returnToCurrentLocation} type="button" className="button go">Current Location</button>
-        {this.state.heatmapReady && <button onClick={this.toggleHeatMap} type="button" className="button go">HeatMap</button>}
+        <button onClick={this.returnToCurrentLocation} type="button" className="button locate go">Current Location</button>
+        {this.state.heatmapReady && <button onClick={this.toggleHeatMap} type="button" className="button is-danger go">HeatMap</button>}
 
-        <div id="go">
-          <button onClick={this.calculateAndDisplayRoute} type="button" className="button go">Search</button>
+        <div className="directions">
+          <button onClick={this.calculateAndDisplayRoute} type="button" className="button">Search</button>
         </div>
-        <div id="google-map" ref={element => this.mapDiv = element}></div>
+        <div style={this.style} id="google-map" ref={element => this.mapDiv = element}></div>
 
         <div id="panel" ref={element => this.panel = element}></div>
         <div id="go">
@@ -173,6 +178,7 @@ class GoogleMap extends React.Component {
         </div>
 
         <img onClick={this.returnToCurrentLocation} src="/assets/images/place.png" id="current"></img>
+
       </section>
     );
   }

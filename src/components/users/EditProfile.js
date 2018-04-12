@@ -31,7 +31,7 @@ class EditProfile extends React.Component {
   render() {
     return (
       <section>
-        <form onSubmit={this.handleSubmit}>
+        <form className="form" onSubmit={this.handleSubmit}>
           <div className="field">
             <label htmlFor="name">UserName</label>
             <input

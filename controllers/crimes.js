@@ -4,7 +4,6 @@ const User = require('../models/user');
 function indexRoute(req, res, next) {
   return Crime.find()
     .then(crimes => res.json(crimes))
-    .then(() => console.log('you', req.currentUser))
     .catch(next);
 }
 

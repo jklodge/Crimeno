@@ -31,10 +31,6 @@ class IndexRoute extends React.Component {
       .then(pos => this.setState({ pos }, () => console.log(this.state)));
   }
 
-  // componentDidUpdate() {
-  //   axios.get('https://data.police.uk/docs/method/neighbourhood/')
-  //     .then(res => this.setState({ police: res.data }, () => console.log(this.state)));
-  // }
 
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,34 +64,25 @@ class IndexRoute extends React.Component {
     this.setState({ modalIsOpen: !this.state.modalIsOpen});
   }
 
+
   render() {
     return (
       <div className="container">
-        <button onClick={this.toggleModal}>Search</button>
-        {this.state.modalIsOpen &&
-        <div className="modal is-active">
-          <div className="modal-background"></div>
-          <div className="modal-content">
-            <p className="title">Search a route for safety</p>
-            <form>
-
-              <main className="search">
-                <div onClick={this.openSearch} id="start" className="field">
-                  <label htmlFor="name">Start</label>
-                  <AutoComplete className="input" placeholder="Location" name="startAddress" onChange={this.handleChange} value={this.state.startAddress} />
-                </div>
-                {/* <button id="getLocation">Get Current Location</button> */}
-                <div id="end" className="field">
-                  <label htmlFor="name">Finish</label>
-                  <AutoComplete className="input" placeholder="Location" name="endAddress" onChange={this.handleChange} value={this.state.endAddress} />
-                </div>
-              </main>
-            </form>
-          </div>
-          <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button>
-        </div>
-        }
         <h1 className="title">CrimeNo</h1>
+
+        <form>
+          <main style={this.style} className="search">
+            <div onClick={this.openSearch} id="start" className="field">
+              <label htmlFor="name">Start</label>
+              <AutoComplete className="input" placeholder="Location" name="startAddress" onChange={this.handleChange} value={this.state.startAddress} />
+            </div>
+            <div id="end" className="field">
+              <label htmlFor="name">Finish</label>
+              <AutoComplete className="input" placeholder="Location" name="endAddress" onChange={this.handleChange} value={this.state.endAddress} />
+            </div>
+          </main>
+        </form>
+
 
         <GoogleMap
           crimes={this.state.crimes}

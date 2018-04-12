@@ -19,7 +19,7 @@ class Register extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={this.handleSubmit}>
         <div className="field">
           <label htmlFor="username">Username</label>
           <input className="input"

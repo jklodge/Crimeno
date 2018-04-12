@@ -6,7 +6,7 @@ import AutoComplete from '../common/AutoComplete';
 const Form = ({ handleSubmit, handleChange, handleLocationChange, data, toggleSubmitReport }) => {
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <div className="field">
         <div className="select">
           <label htmlFor="name">Name Shown</label>
