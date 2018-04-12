@@ -3,11 +3,10 @@ import React from 'react';
 import axios from 'axios';
 import AutoComplete from '../common/AutoComplete';
 import Location from '../../lib/Location';
-// import Promise from 'bluebird';
+import Auth from '../../lib/Auth';
 // import { Link } from 'react-router-dom';
 
 import GoogleMap from '../../components/common/GoogleMap';
-// import Police from '../../components/common/Police';
 
 class IndexRoute extends React.Component {
   state = {
@@ -19,8 +18,8 @@ class IndexRoute extends React.Component {
     end: {},
     pos: null,
     currentLocation: '',
-    // police: [],
-    hideMap: false
+    hideMap: false,
+    modalIsOpen: false
   }
 
   componentDidMount() {
@@ -56,31 +55,55 @@ class IndexRoute extends React.Component {
     this.setState({ start: location, startAddress: address }, () => console.log(this.state));
   }
 
+  handleSupport = (e) => {
+    e.preventDefault();
+    axios.post(`/api/crimes/${this.props.match.params.id}/support`,this.state, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => this.setState({ crime: res.data }))
+      .catch(err => console.error(err));
+  }
+
+  toggleModal = () => {
+    this.setState({ modalIsOpen: !this.state.modalIsOpen});
+  }
+
   render() {
     return (
       <div className="container">
+        <button onClick={this.toggleModal}>Search</button>
+        {this.state.modalIsOpen &&
+        <div className="modal is-active">
+          <div className="modal-background"></div>
+          <div className="modal-content">
+            <p className="title">Search a route for safety</p>
+            <form>
+
+              <main className="search">
+                <div onClick={this.openSearch} id="start" className="field">
+                  <label htmlFor="name">Start</label>
+                  <AutoComplete className="input" placeholder="Location" name="startAddress" onChange={this.handleChange} value={this.state.startAddress} />
+                </div>
+                {/* <button id="getLocation">Get Current Location</button> */}
+                <div id="end" className="field">
+                  <label htmlFor="name">Finish</label>
+                  <AutoComplete className="input" placeholder="Location" name="endAddress" onChange={this.handleChange} value={this.state.endAddress} />
+                </div>
+              </main>
+            </form>
+          </div>
+          <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button>
+        </div>
+        }
         <h1 className="title">CrimeNo</h1>
 
-        <form>
-
-          <main className="search">
-            <div onClick={this.openSearch} id="start" className="field">
-              <label htmlFor="name">Start</label>
-              <AutoComplete className="input" placeholder="Location" name="startAddress" onChange={this.handleChange} value={this.state.startAddress} />
-            </div>
-            {/* <button id="getLocation">Get Current Location</button> */}
-            <div id="end" className="field">
-              <label htmlFor="name">Finish</label>
-              <AutoComplete className="input" placeholder="Location" name="endAddress" onChange={this.handleChange} value={this.state.endAddress} />
-            </div>
-          </main>
-        </form>
         <GoogleMap
           crimes={this.state.crimes}
           start={this.state.start}
           end={this.state.end}
           pos={this.state.pos}
           handleLocationClick={this.handleLocationClick}
+          handleSupport={this.handleSupport}
         />
 
       </div>

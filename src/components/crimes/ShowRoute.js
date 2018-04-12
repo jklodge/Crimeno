@@ -30,7 +30,7 @@ class ShowRoute extends React.Component {
         this.props.history.push('/crimes'));
   }
 
-  handleSupport = (e) => {//why is it this.state and notthis.state.support
+  handleSupport = (e) => {
     e.preventDefault();
     axios.post(`/api/crimes/${this.props.match.params.id}/support`,this.state, {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
@@ -52,6 +52,7 @@ class ShowRoute extends React.Component {
         )}
         <h1>Username of reported crime: {this.state.crime.username}</h1>
         <h1>Address: {this.state.crime.address}</h1>
+        <h1>Incident: {this.state.crime.crime}</h1>
         <h1>Incident Description: {this.state.crime.incidentDescription}</h1>
 
         {this.state.deletePressed ? (

@@ -8,8 +8,15 @@ import axios from 'axios';
 class GoogleMap extends React.Component {
 
   state = {
-    // hideMap: false,
-    police: []
+    hideHeatMap: false,
+    police: [],
+    heatmapReady: false
+  }
+
+  getHeatMapData = (poly, date) => {
+    return axios.get('https://data.police.uk/api/crimes-street/all-crime', {
+      params: { poly, date }
+    });
   }
 
   componentDidMount() {
@@ -29,55 +36,32 @@ class GoogleMap extends React.Component {
     this.directionsDisplay.setPanel(this.panel);
 
 
-    // =51.668095,0.487937:51.310265,0.387533:51.608899,0.263407')
+    const polys = [
+      '51.520561,-0.169133:51.482520,-0.113515:51.523124,-0.079869',
+      '51.482520,-0.113515:51.523124,-0.079869:51.474491,-0.045327'
+    ];
+    const date = '2018-01';
+    const requests = polys.map(poly => this.getHeatMapData(poly, date).then(res => res.data));
+    Promise.all(requests)
+      .then(dataArray => {
+        const data = dataArray.reduce((allData, currentData) => {
+          return allData.concat(currentData);
+        }, []);
 
-
-    axios.get('https://data.police.uk/api/crimes-street/all-crime?poly=51.491748,0.487932:51.701605,0.232500:51.609592,0.264631&date=2018-01')
-      .then(res => {
-        this.setState({ police: res.data });
-      })
-      .then(() => {
-        // this.state.police.forEach(crime => {
-        //   const newPos = {
-        //     lat: parseFloat(crime.location.latitude),
-        //     lng: parseFloat(crime.location.longitude)
-        //   };
-        //   this.marker = new google.maps.Marker({
-        //     position: newPos,
-        //     title: 'CRIME'
-        //   });
-        //   this.marker.addListener('click', () => {
-        //     this.infoWindow.setContent(`
-        //     <div>
-        //       <p>Police Reports</p>
-        //       <p><strong>${crime.category}</strong></p>
-        //     </div>
-        //   `);
-        //     this.infoWindow.open(this.map, this.marker);
-        //     console.log('open', this.infoWindow);
-        //     console.log('info', this.props.crimes);
-        //     console.log('crime info', crime);
-        //
-        //     // new google.maps.LatLng(37.782, -122.447),
-        //     // const heatMapData = [
-        //     //
-        //     // ]
-        //     // const center = new google.maps.LatLng(newArray);
-        //
-        //   });
-        //   this.marker.setMap(this.map);
-        // });
-
-        const heatMapData = this.state.police.map(crime => {
+        const heatMapData = data.map(crime => {
           return new google.maps.LatLng(crime.location.latitude, crime.location.longitude);
         });
-        const heatmap = new google.maps.visualization.HeatmapLayer({
+
+        this.heatmap = new google.maps.visualization.HeatmapLayer({
           data: heatMapData
         });
-        heatmap.setMap(this.map);
+        this.heatmap.setMap(null);
+        this.setState({ heatmapReady: true });
       });
 
   }
+
+
 
   getCurrentLocation = () => {
     console.log('getting current pos...');
@@ -115,6 +99,7 @@ class GoogleMap extends React.Component {
             <p><strong>User added: ${crime.username}</strong></p>
             <p>Date added: ${createdAt}</p>
             <p>Crime taken: ${crime.crime}</p>
+
             <p>${crime.incidentDescription}</p>
             <p><a href="/crimes/${crime._id}">See more...</a></p>
           </div>
@@ -142,8 +127,6 @@ class GoogleMap extends React.Component {
         window.alert('Directions request failed due to ' + status);
       }
     });
-
-    // this.setState({ hideMap: !this.state.hideMap }, () => console.log(this.state));
   }
 
   returnToCurrentLocation = () => {
@@ -164,9 +147,10 @@ class GoogleMap extends React.Component {
     }
   }
 
-  // toggleMap = () => {
-  //   this.setState({ hideMap: !this.state.hideMap }, () =>     console.log(this.state));
-  // }
+  toggleHeatMap = () => {
+    if(this.heatmap.map === null) return this.heatmap.setMap(this.map);
+    else if (this.heatmap.map === this.map) return this.heatmap.setMap(null);
+  }
 
   render() {
     this.getCurrentLocation();
@@ -174,6 +158,7 @@ class GoogleMap extends React.Component {
     return (
       <section>
         <button onClick={this.returnToCurrentLocation} type="button" className="button go">Current Location</button>
+        {this.state.heatmapReady && <button onClick={this.toggleHeatMap} type="button" className="button go">HeatMap</button>}
 
         <div id="go">
           <button onClick={this.calculateAndDisplayRoute} type="button" className="button go">Search</button>
@@ -184,7 +169,6 @@ class GoogleMap extends React.Component {
         <div id="go">
           <main>
             <div>{this.crimes}</div>
-            {/* <button onClick={this.calculateAndDisplayRoute} type="button" className="button go">Show Map</button> */}
           </main>
         </div>
 

@@ -13,6 +13,9 @@ import NewRoute from './components/crimes/NewRoute';
 import EditRoute from './components/crimes/EditRoute';
 import ShowRoute from './components/crimes/ShowRoute';
 
+import Profile from './components/users/Profile';
+import EditProfile from './components/users/EditProfile';
+
 
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -29,6 +32,10 @@ class App extends React.Component {
           <section className="section">
             <Switch>
               <Route exact path="/" component={Home}/>
+              <Route exact path="/users/:id/edit" component={EditProfile} />
+
+              <Route exact path="/users/:id/" component={Profile} />
+
               <Route exact path="/crimes/:id/edit" component={EditRoute} />
               <ProtectedRoute path="/crimes/report" component={NewRoute} />
               <Route exact path="/crimes/report" component={NewRoute} />

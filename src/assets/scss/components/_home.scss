@@ -1,3 +1,6 @@
+section.section {
+  padding: 0;
+}
 section.homePage {
   width: 100%;
   text-align: center;
@@ -16,4 +19,14 @@ header {
   p {
     padding-top: 10px;
   }
+}
+
+.paragraphy-home-page {
+  padding: 20px;
+}
+
+.download-icons {
+  width: 100vw;
+  height: 300px;
+  padding: 20px;
 }
