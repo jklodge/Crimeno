@@ -1,18 +1,17 @@
 import React from 'react';
 import axios from 'axios';
-import User from '../../lib/User';
+// import User from '../../lib/User';
 import Auth from '../../lib/Auth';
 
 class EditProfile extends React.Component {
   state = {
-    username: User.getUser().username,
-    user: null
+    username: '',
+    email: ''
   }
 
   componentDidMount() {
-    axios.get(`/api/crimes/${this.props.match.params.id}`)
-      .then(res => this.setState(res.data))
-      .then(() => console.log('he', this.state.address));//with state we're updating the state at the top
+    axios.get(`/api/users/${this.props.match.params.id}`)
+      .then(res => this.setState(res.data, () => console.log(this.state)));
   }
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +38,16 @@ class EditProfile extends React.Component {
               placeholder="Username"
               name="username"
               value={this.state.username}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="name">Email</label>
+            <input
+              className="input"
+              placeholder="Email"
+              name="email"
+              value={this.state.email}
               onChange={this.handleChange}
             />
           </div>

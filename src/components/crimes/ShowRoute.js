@@ -4,7 +4,17 @@ import { Link } from 'react-router-dom';
 import User from '../../lib/User';
 
 import Auth from '../../lib/Auth';
+import Moment from 'react-moment';
 
+// exports default class MyComponent extends React.Component {
+//     render() {
+//         return (
+//             <Moment parse="YYYY-MM-DD HH:mm">
+//                 1976-04-19 12:59
+//             </Moment>
+//         );
+//     }
+// }
 
 class ShowRoute extends React.Component {
   state = {
@@ -54,7 +64,12 @@ class ShowRoute extends React.Component {
         <h1>Address: {this.state.crime.address}</h1>
         <h1>Incident: {this.state.crime.crime}</h1>
         <h1>Incident Description: {this.state.crime.incidentDescription}</h1>
-
+        <Moment parse="DD-MM-YYYY HH:mm">
+          2018-04-18 20:06
+        </Moment>
+        
+        <p></p>
+        <span>Added: </span><Moment fromNow>2018-04-12T12:59-0500</Moment>
         {this.state.deletePressed ? (
           <div>
             <p>Are you sure?</p>

@@ -64,11 +64,37 @@ class IndexRoute extends React.Component {
     this.setState({ modalIsOpen: !this.state.modalIsOpen});
   }
 
+  style = {
+    height: '50%'
+    // marginTop: '70vh'
+  };
+
+  button = {
+    marginLeft: '70px'
+  };
+
+  content = {
+    color: 'white',
+
+    padding: '10px'
+  }
 
   render() {
     return (
       <div className="container">
-        <h1 className="title">CrimeNo</h1>
+        <a style={this.button} onClick={this.toggleModal} className="title">CRIMENO</a>
+        {/* <button style={this.button} onClick={this.toggleModal}>About</button> */}
+        {this.state.modalIsOpen &&
+          <div style={this.style} className="modal is-active">
+            <div className="modal-background"></div>
+            <div style={this.content} className="modal-content">
+              <p style={this.content}>Thanks for joining Crimeno and contributing to the community!</p>
+              <p style={this.content}>All your reports are annoymous, it&apos:s up to you if you use your username or choose annoymous on you reports.</p>
+              <p style={this.content}>The heatmap has been created using the Police API data, and signifies the level of crime in that area</p>
+            </div>
+            <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button>
+          </div>
+        }
 
         <form>
           <main style={this.style} className="search">

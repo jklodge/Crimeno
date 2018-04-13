@@ -45,11 +45,13 @@
     "bluebird": "^3.5.1",
     "bulma": "^0.6.2",
     "jsonwebtoken": "^8.2.1",
+    "moment-timezone": "^0.5.14",
     "mongoose": "^5.0.12",
     "mongoose-unique-validator": "^2.0.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-fontawesome": "^1.6.1",
+    "react-moment": "^0.7.0",
     "react-router-dom": "^4.2.2"
   }
 }

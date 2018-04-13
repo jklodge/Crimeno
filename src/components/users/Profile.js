@@ -16,9 +16,12 @@ class Profile extends React.Component {
   render() {
     return (
       <section className="user">
-        <h1>Username: {this.state.user.username}</h1>
-        <h1>Username: {this.state.user.email}</h1>
-
+        <div className="field">
+          <h1>Username: {this.state.user.username}</h1>
+        </div>
+        <div className="field">
+          <h1>Email: {this.state.user.email}</h1>
+        </div>
         <Link className="button"
           to={`/users/${this.props.match.params.id}/edit`}>Edit</Link>
       </section>

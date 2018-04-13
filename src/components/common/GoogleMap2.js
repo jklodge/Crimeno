@@ -128,7 +128,7 @@
 //     })
 //     .then(pos => this.setState({ pos }));
 // }
-// 
+//
 // componentDidMount() {
 //   Promise.props({
 //     crimes: axios.get('/api/crimes/').then(res => res.data),
@@ -139,3 +139,26 @@
 //       pos: data.pos
 //     }, () => console.log(this.state)));//with state we're updating the location state
 // }
+{/* <div className="container">
+  <h1 className="title">CRIMENO</h1>
+  <button onClick={this.toggleModal}>About</button>
+  {this.state.modalIsOpen &&
+    <div style={this.style} className="modal is-active">
+      <div className="modal-background"></div>
+      <div className="modal-content">
+        <form>
+          <main style={this.style} className="search">
+            <div onClick={this.openSearch} id="start" className="field">
+              <label htmlFor="name">Start</label>
+              <AutoComplete className="input" placeholder="Location" name="startAddress" onChange={this.handleChange} value={this.state.startAddress} />
+            </div>
+            <div id="end" className="field">
+              <label htmlFor="name">Finish</label>
+              <AutoComplete className="input" placeholder="Location" name="endAddress" onChange={this.handleChange} value={this.state.endAddress} />
+            </div>
+          </main>
+        </form>
+      </div>
+    </div>
+    }
+  <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button> */}
