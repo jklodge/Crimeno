@@ -70,7 +70,8 @@ class IndexRoute extends React.Component {
   };
 
   button = {
-    marginLeft: '70px'
+    marginLeft: '70px',
+    marginRight: '10px'
   };
 
   content = {
@@ -79,17 +80,18 @@ class IndexRoute extends React.Component {
     padding: '10px'
   }
 
+
   render() {
     return (
       <div className="container">
         <a style={this.button} onClick={this.toggleModal} className="title">CRIMENO</a>
-        {/* <button style={this.button} onClick={this.toggleModal}>About</button> */}
+        <a onClick={this.toggleModal}><i className="fas circle fa-binoculars"></i></a>
         {this.state.modalIsOpen &&
           <div style={this.style} className="modal is-active">
             <div className="modal-background"></div>
             <div style={this.content} className="modal-content">
               <p style={this.content}>Thanks for joining Crimeno and contributing to the community!</p>
-              <p style={this.content}>All your reports are annoymous, it&apos:s up to you if you use your username or choose annoymous on you reports.</p>
+              <p style={this.content}>All your reports are annoymous, it&apos;s up to you if you use your username or choose annoymous on you reports.</p>
               <p style={this.content}>The heatmap has been created using the Police API data, and signifies the level of crime in that area</p>
             </div>
             <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button>
