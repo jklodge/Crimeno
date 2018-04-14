@@ -46,7 +46,7 @@ class NewRoute extends React.Component {
     axios.post('/api/crimes', this.state, {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(() => this.props.history.push('/crimes'))
+      .then(() => this.props.history.push('/crimes'), () => console.log(this.state))
       .catch(err => console.error(err));
   }
 

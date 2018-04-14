@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 const heading = {
   fontSize: '30px',
@@ -26,7 +28,9 @@ class Home extends React.Component {
   render() {
     return (
       <section>
-        <h1 className="title">CRIMENO</h1>
+        <Link
+          to="/crimes"><h1 className="title">CRIMENO</h1>
+        </Link>
         <div className="homePage">
 
           <div className="columns is-multiline">

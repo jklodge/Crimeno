@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 //   user: {type: mongoose.Schema.ObjectId, ref: 'User'}
 //
 // });
-
+//add a time of day for the incident
 const crimeSchema = new mongoose.Schema({
   user: {type: mongoose.Schema.ObjectId, ref: 'User'},
   // supports: [ supportSchema ],

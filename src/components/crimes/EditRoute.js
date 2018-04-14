@@ -21,7 +21,7 @@ class NewRoute extends React.Component {
   componentDidMount() {
     axios.get(`/api/crimes/${this.props.match.params.id}`)
       .then(res => this.setState(res.data))
-      .then(() => console.log('he', this.state.address));//with state we're updating the state at the top
+      .then(() => console.log('he', this.state.address));
   }
 
   handleChange = (e) => {
