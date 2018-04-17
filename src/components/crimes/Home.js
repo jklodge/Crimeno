@@ -46,8 +46,8 @@ class Home extends React.Component {
               <div className="paragraphy-home-page">
                 <h1 style={heading} className="title">Thank You</h1>
                 <p>Thanks for joining Crimeno and contributing to the community!</p>
-                <p>All your reports are annoymous, it's up to you if you use your username or choose annoymous on you reports.</p>
-                <p>The heatmap has been created using the Police API data, and signifies the level of crime in that area</p>
+                <p>All your reports are annoymous, it&apos;s up to you if you use your username or choose annoymous on you reports.</p>
+                <p>The heatmap has been created using the Police API data, and signifies the level of crime in London, we hope to expand this area shortly</p>
               </div>
             </div>
             <div className="column is-half-desktop">

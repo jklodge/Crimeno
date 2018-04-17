@@ -90,7 +90,7 @@ class IndexRoute extends React.Component {
           <div style={this.style} className="modal is-active">
             <div className="modal-background"></div>
             <div style={this.content} className="modal-content">
-              <p style={this.content}>Thanks for joining Crimeno and contributing to the community! Currently all of the Police data pulled is from London, we will expand shortly.</p>
+              <p style={this.content}>Thanks for joining Crimeno and contributing to the community! Currently all of the data pulled from the Police database is from London, we will expand shortly.</p>
               <p style={this.content}>All your reports are annoymous, it&apos;s up to you if you use your username or choose annoymous on you reports.</p>
               <p style={this.content}>The heatmap has been created using the Police API data, and signifies the level of crime in that area</p>
             </div>

@@ -12,7 +12,7 @@ class NewRoute extends React.Component {
     username: '',
     crime: '',
     location: '',
-    address: '',
+    locationAddress: '',
     date: '',
     incidentDescription: '',
     submitReport: false
@@ -26,8 +26,10 @@ class NewRoute extends React.Component {
 
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value }, () => console.log(this.state));
+    console.log(name, value);
+    this.setState({ [name]: value }, () => console.log('STATE', this.state));
   }
+
 
   toggleSubmitReport = () =>{
     this.setState({ submitReport: !this.state.submitReport });

@@ -7,8 +7,10 @@ class AutoComplete extends React.Component {
 
   componentDidMount() {
     this.autoCompleteInput = new google.maps.places.Autocomplete(this.input);
+
     this.autoCompleteInput.addListener('place_changed', () => {
       const place = this.autoCompleteInput.getPlace();
+
       this.props.onChange({
         target: {
           name: this.input.name.replace('Address', ''),

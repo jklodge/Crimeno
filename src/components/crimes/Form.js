@@ -3,7 +3,7 @@ import AutoComplete from '../common/AutoComplete';
 // import GoogleMap from '../common/GoogleMap';
 
 
-const Form = ({ handleSubmit, handleChange, handleLocationChange, data, toggleSubmitReport }) => {
+const Form = ({ handleSubmit, handleChange, data, toggleSubmitReport }) => {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -37,7 +37,7 @@ const Form = ({ handleSubmit, handleChange, handleLocationChange, data, toggleSu
 
       <div className="field">
         <label htmlFor="name">Location</label>
-        <AutoComplete className="input" placeholder="Location" name="location" onChange={handleLocationChange} value={data.address}/>
+        <AutoComplete className="input" placeholder="Location" name="locationAddress" onChange={handleChange} value={data.locationAddress}/>
       </div>
 
       <div className="field">

@@ -20,7 +20,7 @@ class NewRoute extends React.Component {
       lat: 0,
       lng: 0
     },
-    address: '',
+    locationAddress: '',
     date: '',
     incidentDescription: '',
     submitReport: false
@@ -28,13 +28,15 @@ class NewRoute extends React.Component {
 
   handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     this.setState({ [name]: value }, () => console.log('STATE', this.state));
   }
 
-  handleLocationChange = (e) => {
-    const { location, address } = e.target.value;
-    this.setState({ location, address }, () => console.log(this.state));
-  }
+  // handleLocationChange = (e) => {
+  //   console.log(e.target.value);
+  //   const { location, address } = e.target.value;
+  //   this.setState({ location, address }, () => console.log(this.state));
+  // }
 
   toggleSubmitReport = () =>{
     this.setState({ submitReport: !this.state.submitReport });
@@ -43,7 +45,12 @@ class NewRoute extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/crimes', this.state, {
+
+    const data = { ...this.state };
+    data.address = data.locationAddress;
+    delete data.locationAddress;
+
+    axios.post('/api/crimes', data, {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(() => this.props.history.push('/crimes'), () => console.log(this.state))
@@ -57,7 +64,7 @@ class NewRoute extends React.Component {
         <Form
           toggleSubmitReport={this.toggleSubmitReport}
           handleChange={this.handleChange}
-          handleLocationChange={this.handleLocationChange}
+          // handleLocationChange={this.handleLocationChange}
           handleSubmit={this.handleSubmit}
           data={this.state}
         />

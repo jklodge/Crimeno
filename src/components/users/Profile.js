@@ -17,9 +17,8 @@ class Profile extends React.Component {
     return (
       <section className="user">
         <div className="field">
+          <h1 className="subtitle"><strong>Your account info:</strong></h1>
           <h1>Username: {this.state.user.username}</h1>
-        </div>
-        <div className="field">
           <h1>Email: {this.state.user.email}</h1>
         </div>
         <Link className="button"

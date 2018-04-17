@@ -30,8 +30,11 @@ class EditProfile extends React.Component {
   render() {
     return (
       <section>
+
         <form className="form" onSubmit={this.handleSubmit}>
+
           <div className="field">
+            <h1 className="subtitle"><strong>Update your account info</strong></h1>
             <label htmlFor="name">UserName</label>
             <input
               className="input"
