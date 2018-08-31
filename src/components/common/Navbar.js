@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
 import User from '../../lib/User';
-import Flash from '../../lib/Flash';
 
 class Navbar extends React.Component {
 
@@ -24,19 +23,11 @@ class Navbar extends React.Component {
     this.state.navIsOpen && this.setState({ navIsOpen: false });
   }
 
-  flashWarning = () => {
-
-    Auth.isAuthenticated();
-
-      Flash.setMessage('success', 'You need to login first!');
-
-  }
-
   render() {
     return (
       <nav className="navbar">
         <div className="navbar-brand">
-          <Link className="navbar-item logoNav" to="/">
+          <Link className="navbar-item" to="/">
             <img src="/assets/images/binoculars.png"/>
           </Link>
           <div
@@ -53,7 +44,7 @@ class Navbar extends React.Component {
           <div className="navbar-end">
             <Link className="navbar-item"
               to="/crimes">Crimeno</Link>
-            <Link className="navbar-item" onClick={this.flashWarning}
+            <Link className="navbar-item"
               to="/crimes/report">Report</Link>
             {Auth.isAuthenticated() && <a className="navbar-item" onClick={this.handleLogout}>Logout</a>}
             {!Auth.isAuthenticated() && <Link className="navbar-item" to="/login">Login</Link>}

@@ -13,8 +13,6 @@ class IndexRoute extends React.Component {
     crimes: [],
     query: '',
     startAddress: '',
-    areaAddress: '',
-    area: {},
     start: {},
     endAddress: '',
     end: {},
@@ -78,6 +76,7 @@ class IndexRoute extends React.Component {
 
   content = {
     color: 'white',
+
     padding: '10px'
   }
 
@@ -98,17 +97,9 @@ class IndexRoute extends React.Component {
             <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button>
           </div>
         }
-        <div className="heading">
-          <h1>Search for crime in your area</h1>
-        </div>
-        <form>
 
+        <form>
           <main style={this.style} className="search">
-            <div onClick={this.openSearch} id="area" className="field">
-              <label htmlFor="name">AREA</label>
-              <AutoComplete className="input" placeholder="Location" name="areaAddress" onChange={this.handleChange} value={this.state.areaAddress} />
-            </div>
-            <p className="or">OR</p>
             <div onClick={this.openSearch} id="start" className="field">
               <label htmlFor="name">Start</label>
               <AutoComplete className="input" placeholder="Location" name="startAddress" onChange={this.handleChange} value={this.state.startAddress} />
@@ -125,7 +116,6 @@ class IndexRoute extends React.Component {
           crimes={this.state.crimes}
           start={this.state.start}
           end={this.state.end}
-          area={this.state.area}
           pos={this.state.pos}
           handleLocationClick={this.handleLocationClick}
           handleSupport={this.handleSupport}

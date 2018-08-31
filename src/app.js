@@ -16,8 +16,6 @@ import ShowRoute from './components/crimes/ShowRoute';
 import Profile from './components/users/Profile';
 import EditProfile from './components/users/EditProfile';
 
-import FlashMessages from './components/common/FlashMessages';
-
 
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -31,7 +29,6 @@ class App extends React.Component {
       <BrowserRouter>
         <main>
           <Navbar />
-          <FlashMessages />
           <section className="section">
             <Switch>
               <Route exact path="/" component={Home}/>
@@ -40,7 +37,7 @@ class App extends React.Component {
               <Route exact path="/users/:id/" component={Profile} />
 
               <Route exact path="/crimes/:id/edit" component={EditRoute} />
-              {/* <ProtectedRoute path="/crimes/report" component={NewRoute} /> */}
+              <ProtectedRoute path="/crimes/report" component={NewRoute} />
               <Route exact path="/crimes/report" component={NewRoute} />
 
               <Route exact path="/crimes/:id" component={ShowRoute} />
