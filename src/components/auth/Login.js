@@ -26,7 +26,7 @@ class Login extends React.Component {
   render() {
     return (
       <section className="login">
-        <h1 className="login-title"></h1>
+        <h1 className="login-title">Login to Crimeno</h1>
         <form className="form" onSubmit={this.handleSubmit}>
           <div className="field">
             <label htmlFor="email">Email</label>

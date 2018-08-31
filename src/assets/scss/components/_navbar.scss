@@ -1,0 +1,41 @@
+.navbar-menu {
+  background-color: #444444;
+  text-align: center;
+  height: 35px;
+}
+.navbar-end {
+  background-color: #444444;
+  text-align: center;
+  height: 35px;
+  justify-content: center !important;
+  margin: auto !important;
+      // padding-right: 60px;
+}
+
+a.navbar-item {
+  color: white;
+  font-size: 14px;
+  background-color: rgba(68,68,68, 0.8);
+      z-index: 10;
+}
+
+.navbar-brand {
+  background-color: #444444;
+  min-height: auto !important;
+  height: 35px;
+}
+
+.navbar-burger {
+  color: white;
+  height: auto !important;
+}
+
+.logoNav {
+  border: none !important;
+}
+
+@media only screen and (max-width: 768px) {
+  a.navbar-item{
+    border-bottom: white solid 0.5px;
+  }
+}

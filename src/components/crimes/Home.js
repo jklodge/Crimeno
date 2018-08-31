@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 const heading = {
   fontSize: '30px',
   textAlign: 'center',
-  color: '#0D4D7A'
+  color: '#0D4D7A',
+  fontWeight: '600'
 
 };
 
@@ -18,6 +19,12 @@ const imageStyle = {
   padding: '0'
 };
 
+const logo = {
+  backgroundImage: '/assets/images/crimelogo.png',
+  width: '28%',
+  marginTop: '10px'
+};
+
 const google = {
   backgroundImage: '/assets/images/googleios.png',
   width: '300px'
@@ -27,9 +34,9 @@ class Home extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="homeSection">
         <Link
-          to="/crimes"><h1 className="title">CRIMENO</h1>
+          to="/crimes">  <img style={logo} src="/assets/images/crimelogo.png" />
         </Link>
         <div className="homePage">
 
@@ -43,12 +50,10 @@ class Home extends React.Component {
                 <h1 style={heading}>Working together to raise awareness</h1>
                 <p>Imagine if everytime a crime took place we let people know! Think of the things they could try to avoid so it doesn&apos;t happen to them. It&apos;s not only the area it took place in, it&apos;s how it happened that can help prevent it happening again.</p>
               </div>
-              <div className="paragraphy-home-page">
-                <h1 style={heading} className="title">Thank You</h1>
-                <p>Thanks for joining Crimeno and contributing to the community!</p>
-                <p>All your reports are annoymous, it&apos;s up to you if you use your username or choose annoymous on you reports.</p>
-                <p>The heatmap has been created using the Police API data, and signifies the level of crime in London, we hope to expand this area shortly</p>
-              </div>
+              <h1 style={heading} className="title">Thank You</h1>
+              <p>Thanks for joining Crimeno and contributing to the community!</p>
+              <p>All your reports are annoymous, it&apos;s up to you if you use your username or choose annoymous on you reports.</p>
+              <p>The heatmap has been created using the Police API data, and signifies the level of crime in London, we hope to expand this area shortly</p>
             </div>
             <div className="column is-half-desktop">
               <img style={imageStyle} src="/assets/images/crimeno.png"/>

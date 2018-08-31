@@ -143,8 +143,8 @@ class GoogleMap extends React.Component {
     this.geocoder = new google.maps.Geocoder;
 
     this.directionsDisplay.setMap(this.map);
-    this.directionsDisplay.setPanel(this.panel);
-
+    // this.directionsDisplay.setPanel(this.panel);
+    //
 
     const polys = [
       '51.504098, -0.075407:51.513140, -0.111134:51.520350, -0.092852',
@@ -185,7 +185,7 @@ class GoogleMap extends React.Component {
 
 
   getCurrentLocation = () => {
-    console.log('getting current pos...');
+    console.log('getting current pos...', pos);
     const { pos, crimes } = this.props;
     if(pos) {
       this.infoWindow.setPosition(pos);
@@ -270,6 +270,25 @@ class GoogleMap extends React.Component {
     }
   }
 
+  findArea = () => {
+    const { area } = this.props;
+    console.log(area);
+      this.infoWindow.setPosition(area);
+      this.infoWindow.open(this.map);
+      this.infoWindow.setContent('You are here');
+      this.map.setCenter(area);
+
+      this.geocoder.geocode({location: area}, (results) => {
+        console.log('geocodin\'', results[0].formatted_address);
+        this.props.handleLocationClick({
+          location: this.props.area,
+          address: results[0].formatted_address
+        });
+      });
+
+  }
+
+
   toggleHeatMap = () => {
     if(this.heatmap.map === null) return this.heatmap.setMap(this.map);
     else if (this.heatmap.map === this.map) return this.heatmap.setMap(null);
@@ -285,6 +304,7 @@ class GoogleMap extends React.Component {
 
     return (
       <section>
+        <button onClick={this.findArea} type='button' className='button locate go'>Search Area</button>
         <button onClick={this.returnToCurrentLocation} type='button' className='button locate go'>Current Location</button>
         {this.state.heatmapReady && <button onClick={this.toggleHeatMap} type='button' className='button is-danger go'>HeatMap</button>}
 
