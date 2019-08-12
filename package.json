@@ -8,7 +8,7 @@
     "test:server": "nyc mocha \"test/server/**/*_spec.js\" --require \"test/server/spec_helper\" --recursive --exit",
     "test:client": "mocha --require ignore-styles test/client/helper \"test/client/**/*_test.js\" --recursive --exit",
     "build": "webpack -p",
-    "start": "yarn build && node index"
+    "start": "npm build && node index"
   },
   "author": "Students",
   "license": "ISC",
@@ -36,7 +36,7 @@
     "style-loader": "^0.20.2",
     "supertest": "^3.0.0",
     "url-loader": "^0.6.2",
-    "webpack": "^3.11.0",
+    "webpack": "^1.15.0",
     "webpack-dev-server": ">=3.1.11"
   },
   "dependencies": {
